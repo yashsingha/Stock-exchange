@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+    {% block title %}
+        History
+    {% endblock %}
+
+    {% block main %}
+
+        <h1>Your Transacton History</h1><br><br>
+
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th>Symbol</th>
+                    <th>Shares</th>
+                    <th>Price</th>
+                    <th>Transacted</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in history %}
+
+                    {% if data.transaction_type == 'buy' %}
+
+                        <tr>
+                            <td>{{ data.symbol }}</td>
+                            <td>{{ data.quantity}}</td>
+                            <td>{{ data.price | usd}}</td>
+                            <td>{{ data.time}}</td>
+                        </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td>{{ data.symbol }}</td>
+                        <td>-{{ data.quantity}}</td>
+                        <td>{{ data.price | usd}}</td>
+                        <td>{{ data.time}}</td>
+                    </tr>
+
+                    {% endif %}
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}
